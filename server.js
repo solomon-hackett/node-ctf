@@ -6,11 +6,13 @@ app.set("view engine", "ejs");
 
 //import routers
 
+
 //home page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 //routes
+
 
 app.listen(3000);
