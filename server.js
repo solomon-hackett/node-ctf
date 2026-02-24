@@ -7,6 +7,7 @@ app.set("view engine", "ejs");
 //import routers
 const shopRouter = require("./routes/shop");
 const accountRouter = require("./routes/account");
+const adminRouter = require("./routes/admin");
 
 //home page
 app.get("/", (req, res) => {
@@ -16,5 +17,6 @@ app.get("/", (req, res) => {
 //routes
 app.use("/shop", shopRouter);
 app.use("/account", accountRouter);
+app.use("/admin", adminRouter);
 
 app.listen(3000);
