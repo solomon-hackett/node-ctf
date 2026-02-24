@@ -2,11 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const User = require("../models/User");
+
 
 //middlewares
 const auth = require("../middlewares/auth");
-
-const users = [];
 
 isLoggedIn = false;
 
@@ -18,14 +18,13 @@ router.get("/", auth, (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = {
+    const user = new User( {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      password: hashedPassword,
-    };
-    res.send(user);
-    users.push(user);
+      password: hashedPassword
+    });
+    await user.save().then(() => console.log("user saved"))
     res.status(201).send();
   } catch {
     res.status(500).send();
