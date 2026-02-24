@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Register</title>
+  </head>
+  <body>
+    <div class="title">
+      <h1>Login or Register here</h1>
+    </div>
+    <div class="login-register">
+      <div class="login">
+        <form action="/account/login" method="post">
+          <h2>Login</h2>
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" />
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+          <input type="submit" value="Login" />
+        </form>
+      </div>
+      <div class="register">
+        <form action="/account/register" method="post">
+          <h2>Register</h2>
+          <h4>
+            DO NOT USE A PASSWORD THAT YOU USE FOR OTHER ACCOUNTS IT WILL BE
+            LEAKED
+          </h4>
+          <label for="firstName">First Name</label>
+          <input type="text" name="firstName" id="firstName" />
+          <label for="lastName">Last Name</label>
+          <input type="text" name="lastName" id="lastName" />
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" />
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+          <input type="submit" value="Register" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

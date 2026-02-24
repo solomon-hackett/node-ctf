@@ -1,6 +1,6 @@
 //imports
 const express = require("express");
-const router = express();
+const router = express.Router();
 
 //routes
 router.get("/", (req, res) => {
