@@ -4,7 +4,7 @@ const router = express();
 
 //routes
 router.get("/", (req, res) => {
-  res.send("account");
+  res.render("account/account");
 });
 
 module.exports = router;
