@@ -11,7 +11,7 @@ const adminRouter = require("./routes/admin");
 
 //home page
 app.get("/", (req, res) => {
-    res.render("index");
+  res.render("index");
 });
 
 //routes
