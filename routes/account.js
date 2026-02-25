@@ -4,7 +4,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
-
 //middlewares
 const auth = require("../middlewares/auth");
 
@@ -18,16 +17,17 @@ router.get("/", auth, (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = new User( {
+    const user = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      password: hashedPassword
+      password: hashedPassword,
     });
-    await user.save().then(() => console.log("user saved"))
-    res.status(201).send();
-  } catch {
-    res.status(500).send();
+    console.log(user);
+    res.send(user)
+  } catch (e) {
+    console.log(e.message);
+    res.resposnse(500).send(e.message)
   }
 });
 
