@@ -24,10 +24,10 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
     });
     console.log(user);
-    res.send(user)
+    res.send(user);
   } catch (e) {
     console.log(e.message);
-    res.resposnse(500).send(e.message)
+    res.resposnse(500).send(e.message);
   }
 });
 
@@ -48,6 +48,3 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
-
-
-//test
