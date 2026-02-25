@@ -10,10 +10,12 @@ const auth = require("../middlewares/auth");
 isLoggedIn = false;
 
 //routes
+//main account page
 router.get("/", auth, (req, res) => {
   res.render("account/account");
 });
 
+//register
 router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -31,6 +33,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//login
 router.post("/login", async (req, res) => {
   const user = users.find((user) => (user.username = req.body.username));
   if (user == null) {
