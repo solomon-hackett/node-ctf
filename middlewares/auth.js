@@ -6,4 +6,4 @@ function auth(req, res, next) {
   res.render("account/login-register");
 }
 
-module.exports = auth;
+module.exports = { auth };

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 //middlewares
-const auth = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth");
 
 isLoggedIn = false;
 
@@ -19,33 +19,57 @@ router.get("/", auth, (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
     const user = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
       password: hashedPassword,
     });
-    console.log(user);
-    res.send(user);
-  } catch (e) {
-    console.log(e.message);
-    res.resposnse(500).send(e.message);
+    res.redirect("/account");
+  } catch (err) {
+    console.log(err);
+    //Duplicate username
+    if (err.code === 11000) {
+      return res.render("account/login-register.ejs", {
+        registerError: "Username already exists",
+      });
+    }
+
+    // Validation error
+    if (err.name === "ValidationError") {
+      return res.render("account/login-register.ejs", {
+        registerError: "Password must be at least 8 characters",
+      });
+    }
+
+    // Fallback
+    res.render("account/login-register.ejs", {
+      registerError: "Something went wrong. Please try again.",
+    });
   }
 });
 
-//login
+//Login
 router.post("/login", async (req, res) => {
-  const user = users.find((user) => (user.username = req.body.username));
+  //Find the user
+  const user = await User.findOne({ username: req.body.username });
+  //If user doesn't exist then send
   if (user == null) {
-    return res.status(400).send("Cannot find user");
+    return res.render("account/login-register.ejs", {
+      loginError: "User does not exist, please register an account.",
+    });
   }
+  //Validate password
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
       res.send("success");
     } else {
       res.send("password incorrct");
     }
-  } catch {
+  } catch (err){
+    console.log(err)
+    //If something goes wrong send server error
     res.status(500).send();
   }
 });
